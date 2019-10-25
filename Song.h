@@ -19,19 +19,22 @@ public:
 	void setTitle(std::string);
 	void setSize(int);
 
-	std::string getArtist()
+	std::string getArtist() const
 	{
 		return artist;
 	}
-
-	std::string getTitle()
+	std::string getTitle() const
 	{
 		return title;
 	}
-
-	int getSize()
+	int getSize() const
 	{
 		return size;
 	}
+	bool operator == (Song const &rhs);
+	bool operator > (Song const &rhs);
+	bool operator < (Song const &rhs);
 };
+std::ostream& operator << (std::ostream& out, const Song &s);
+
 #endif

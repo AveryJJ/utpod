@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "Song.h"
-#include "UTPOD.h"
+#include "UtPod.h"
 
 using namespace std;
 
@@ -18,6 +18,10 @@ UtPod::UtPod(int size)
 	{
 		size = MAX_MEMORY;
 	}
+}
+UtPod::~UtPod()
+{
+	clearMemory();
 }
 /*
  * IF THERE IS ENOUGH MEMORY
@@ -52,7 +56,7 @@ int UtPod::removeSong(Song const &s)
 	}
 	else
 	{
-		SongNode *Followptr = songs;
+		SongNode *FollowPtr = songs;
 		SongNode *LeadPtr = songs;
 		while(FollowPtr != NULL)
 		{
@@ -104,21 +108,29 @@ void UtPod::showSongList()
 
 void UtPod::sortSongList()
 {
-
+	
 }
 
 void UtPod::clearMemory()
 {
-
+        if(songs == NULL)
+        {
+                return;
+        }
+        else
+        {
+                SongNode *ptr = songs;
+                while(ptr != NULL)
+                {
+                        SongNode *temp = ptr;
+                        delete temp;
+                        ptr = ptr->next;
+                }
+                songs = ptr;
+	}
 }
 
-int UtPod::getTotalMemory()
-{
-	return memSize;
-}
-
-
-int Utpod::getRemainingMemory()
+int UtPod::getRemainingMemory()
 {
 	int curSize = 0;
 	if(songs == NULL)
@@ -137,7 +149,3 @@ int Utpod::getRemainingMemory()
 	return memSize - curSize;
 }
 
-
-UtPod::~UtPod();
-
-}
